@@ -58,10 +58,7 @@
     conf = "sudoedit /etc/nixos/configuration.nix";
     sshdemo = "ssh -i ~/repos/platform/k8s/keys/ahq.demo admin@a.demo.analyticshq.com";
     sshdev = "ssh -i ~/repos/platform/k8s/keys/ahq.dev admin@a.dev.analyticshq.com";
-    update =
-      if pkgs.system == "aarch64-darwin"
-      then "darwin-rebuild switch --flake ~/repos/nix-configs/#m3 --impure"
-      else "home-manager switch --flake ~/.config/home-manager --impure";
+    update = "sudo nixos-rebuild switch --flake ~/repos/nutanix-dev-flake --impure";
   };
 in {
   nixpkgs.config = {
@@ -217,7 +214,7 @@ in {
         };
       };
       default_layout = "compact";
-      default_shell = "/home/kubezt/.nix-profile/bin/zsh";
+      default_shell = "/etc/profiles/per-user/kubezt/bin/zsh";
       pane_frames = true;
       simplified_ui = true;
       # copy_clipboard = "primary";

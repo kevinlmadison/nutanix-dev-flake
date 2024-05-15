@@ -36,14 +36,16 @@
       home-manager.users.kubezt = import ./home.nix;
     };
   in {
-    "nuvm" = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = inputs;
-      modules = [
-        ./hosts/nuvm/default.nix
-        home-manager.nixosModules.home-manager
-        home-modules
-      ];
+    nixosConfigurations = {
+      "nuvm" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = inputs;
+        modules = [
+          ./hosts/nuvm/default.nix
+          home-manager.nixosModules.home-manager
+          home-modules
+        ];
+      };
     };
   };
 }

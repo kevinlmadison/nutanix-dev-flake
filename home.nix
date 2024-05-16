@@ -46,6 +46,8 @@
     clang-tools
     cmake
     llvm
+    docker
+    docker-compose
   ];
 
   shellAliases = {
@@ -58,7 +60,7 @@
     conf = "sudoedit /etc/nixos/configuration.nix";
     sshdemo = "ssh -i ~/repos/platform/k8s/keys/ahq.demo admin@a.demo.analyticshq.com";
     sshdev = "ssh -i ~/repos/platform/k8s/keys/ahq.dev admin@a.dev.analyticshq.com";
-    update = "sudo nixos-rebuild switch --flake ~/repos/nutanix-dev-flake --impure";
+    update = "sudo nixos-rebuild switch --flake ~/repos/nutanix-dev-flake#nuvm --impure";
   };
 in {
   nixpkgs.config = {

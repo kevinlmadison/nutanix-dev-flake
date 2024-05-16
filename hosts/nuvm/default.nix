@@ -5,6 +5,7 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
+    ./docker.nix
     ./tailscale.nix
     ./hardware-configuration.nix
   ];
@@ -47,7 +48,7 @@
   users.users.kubezt = {
     isNormalUser = true;
     description = "kubezt";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     packages = with pkgs; [];
   };
 

@@ -15,6 +15,7 @@
   }) {};
 
   default_pkgs = with pkgs; [
+    nushell
     mongosh
     gohufont
     bat

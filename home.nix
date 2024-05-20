@@ -154,6 +154,7 @@ in {
         "docker"
         "kubectl"
         "vi-mode"
+        "ssh-agent"
       ];
       theme = "robbyrussell";
     };
@@ -220,7 +221,7 @@ in {
       default_shell = "/etc/profiles/per-user/kubezt/bin/zsh";
       pane_frames = true;
       simplified_ui = true;
-      # copy_clipboard = "primary";
+      copy_clipboard = "primary";
       copy_on_select = false;
       # layout_dir = "~/.config/zellij/layouts";
       theme = "rose-pine";

@@ -15,17 +15,26 @@
   }) {};
 
   default_pkgs = with pkgs; [
+    # cool rust rewrites of posix tools
+    sd # sed
+    fd # find
+    procs # ps
+    dust # du
+    tokei
+    hyperfine
+    bandwhich
+    grex
+    bat-extras.batgrep
     nushell
+
     mongosh
     gohufont
-    bat
     k9s
     git
     font-awesome
     powerline-fonts
     powerline-symbols
     nerdfonts
-    sd
     (python3.withPackages (ps: with ps; [pypy python-lsp-server python-lsp-ruff]))
     nil
     entr
@@ -36,7 +45,6 @@
     terraform
     ansible
     inputs.neovim-flake.packages.${pkgs.system}.default
-    fd
     devenv
     pkg-config
     openssl
@@ -58,6 +66,7 @@
     gcm = "git commit -m";
     se = "sudoedit";
     sz = "source ~/.zshrc";
+    tg = "batgrep";
     conf = "sudoedit /etc/nixos/configuration.nix";
     sshdemo = "ssh -i ~/repos/platform/k8s/keys/ahq.demo admin@a.demo.analyticshq.com";
     sshdev = "ssh -i ~/repos/platform/k8s/keys/ahq.dev admin@a.dev.analyticshq.com";
@@ -81,6 +90,8 @@ in {
   programs = {
     ripgrep.enable = true;
     bat.enable = true;
+    tealdeer.enable = true;
+
     autojump.enable = true;
     jq.enable = true;
     nix-index.enable = true;
@@ -98,6 +109,15 @@ in {
     enable = true;
     userName = "kevinlmadison";
     userEmail = "coolklm121@gmail.com";
+    delta = {
+      enable = true;
+      options = {
+        syntax-theme = "gruvbox-dark";
+        dark = true;
+        line-numbers = true;
+        side-by-side = true;
+      };
+    };
   };
 
   programs.zoxide = {

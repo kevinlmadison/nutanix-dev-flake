@@ -27,6 +27,8 @@
     bat-extras.batgrep
     nushell
 
+    btop
+    inetutils
     mongosh
     gohufont
     k9s

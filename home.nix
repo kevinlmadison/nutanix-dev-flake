@@ -96,6 +96,20 @@ in {
   #   allowUnfree = true;
   #   allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) allowed-unfree-packages;
   # };
+  imports = [
+    # Include the results of the hardware scan.
+    # ./zellij.nix
+    # ./kitty.nix
+    # ./nushell
+    # ./starship.nix
+    # ./atuin.nix
+    ./files.nix
+    # ./rust/cargo-generate.nix
+    # ./display
+    # (import ./display {inherit inputs pkgs;})
+    # inputs.nixvim.homeManagerModules.nixvim
+  ];
+
   home.sessionVariables = {
     EDITOR = "nvim";
     KUBE_EDITOR = "nvim";

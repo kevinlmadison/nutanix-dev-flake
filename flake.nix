@@ -15,6 +15,10 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    hyprland.url = "github:hyprwm/Hyprland/v0.38.1";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.inputs.systems.follows = "systems";
+
     # Peronal Neovim Flake
     neovim-flake.url = "github:kevinlmadison/neovim-flake";
   };

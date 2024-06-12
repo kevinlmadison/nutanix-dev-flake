@@ -73,6 +73,9 @@
     llvm
     docker
     docker-compose
+    (inputs.hyprland.packages."x86_64-linux".hyprland.override {
+      # enableNvidiaPatches = true;
+    })
   ];
 
   shellAliases = {

@@ -49,6 +49,9 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-hyprland];
+
   programs.hyprland.enable = true;
   # Enable the X11 windowing system.
   services.xserver.enable = true;

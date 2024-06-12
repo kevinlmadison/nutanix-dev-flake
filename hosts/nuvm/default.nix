@@ -1,5 +1,7 @@
 {
+  allowed-unfree-packages,
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -20,6 +22,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
+  networking.extraHosts = ''
+    10.54.96.40 kubezt-s3.prism-central.cluster.local
+  '';
+  networking.nameservers = ["10.54.96.41"];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -43,6 +49,14 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  programs.hyprland.enable = true;
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = false;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -61,7 +75,10 @@
   services.getty.autologinUser = "kubezt";
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) allowed-unfree-packages;
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

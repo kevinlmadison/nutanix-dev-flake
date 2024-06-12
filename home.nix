@@ -1,4 +1,5 @@
 {
+  allowed-unfree-packages,
   lib,
   inputs,
   pkgs,
@@ -27,6 +28,7 @@
     bat-extras.batgrep
     nushell
 
+    dig
     btop
     inetutils
     mongosh
@@ -37,7 +39,16 @@
     powerline-fonts
     powerline-symbols
     nerdfonts
-    (python3.withPackages (ps: with ps; [pypy python-lsp-server python-lsp-ruff]))
+    (python311.withPackages (ps:
+      with ps; [
+        python-lsp-server
+        python-lsp-ruff
+        python-lsp-black
+        pylsp-rope
+        pylsp-mypy
+        pyls-isort
+      ]))
+
     nil
     entr
     kubectl
@@ -50,6 +61,9 @@
     devenv
     pkg-config
     openssl
+    istioctl
+    nmap
+    go
   ];
 
   linux_pkgs = with pkgs; [
@@ -75,9 +89,13 @@
     update = "sudo nixos-rebuild switch --flake ~/repos/nutanix-dev-flake#nuvm --impure";
   };
 in {
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  # nixpkgs.config = {
+  #   allowUnfree = true;
+  # };
+  # nixpkgs.config = {
+  #   allowUnfree = true;
+  #   allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) allowed-unfree-packages;
+  # };
   home.sessionVariables = {
     EDITOR = "nvim";
     KUBE_EDITOR = "nvim";
@@ -97,6 +115,18 @@ in {
     autojump.enable = true;
     jq.enable = true;
     nix-index.enable = true;
+  };
+
+  programs.helix = {
+    enable = true;
+    defaultEditor = false;
+    settings = {
+      theme = "gruvbox";
+      editor.line-number = "relative";
+      editor.cursor-shape.insert = "bar";
+      editor.lsp.enable = true;
+      editor.lsp.display-messages = true;
+    };
   };
 
   programs.direnv = {
@@ -211,7 +241,7 @@ in {
 
   programs.zellij = {
     enable = true;
-    package = pkgs_0_39_2.zellij;
+    # package = pkgs_0_39_2.zellij;
     settings = {
       keybinds = {
         normal = builtins.listToAttrs (lib.genList (n: {
@@ -243,8 +273,9 @@ in {
       default_shell = "/etc/profiles/per-user/kubezt/bin/zsh";
       pane_frames = true;
       simplified_ui = true;
-      copy_clipboard = "primary";
-      copy_on_select = false;
+      copy_clipboard = "system";
+      copy_on_select = true;
+      # copy_command = "xclip -selection clipboard";
       # layout_dir = "~/.config/zellij/layouts";
       theme = "rose-pine";
       # if pkgs.system == "aarch64-darwin"

@@ -28,22 +28,33 @@
   } @ inputs: let
     username = "kubezt";
     stateVersion = "24.05";
-    home-modules = {
-      home-manager.backupFileExtension = "bak";
-      home-manager.useGlobalPkgs = false;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {inherit inputs username stateVersion;};
-      home-manager.users.kubezt = import ./home.nix;
+    # allowed-unfree-packages = [
+    #   "codeium"
+    # ];
+    allowUnfree = {
+      nixpkgs.config = {
+        allowUnfree = true;
+        allowUnfreePredicate = pkg: true;
+      };
     };
   in {
     nixosConfigurations = {
       "nuvm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = inputs;
+        specialArgs = {inherit inputs;};
         modules = [
           ./hosts/nuvm/default.nix
+          allowUnfree
           home-manager.nixosModules.home-manager
-          home-modules
+          {
+            home-manager.backupFileExtension = "bak";
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit inputs username stateVersion;
+            };
+            home-manager.users.kubezt = import ./home.nix;
+          }
         ];
       };
     };

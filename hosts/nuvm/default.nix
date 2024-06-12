@@ -49,17 +49,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal pkgs.xdg-desktop-portal-hyprland];
-
-  # programs.hyprland.enable = true;
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = false;
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";

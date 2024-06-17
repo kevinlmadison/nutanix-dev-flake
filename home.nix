@@ -71,6 +71,7 @@
     clang-tools
     cmake
     llvm
+    gnumake
     docker
     docker-compose
   ];

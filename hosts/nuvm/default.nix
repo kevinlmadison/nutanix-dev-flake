@@ -21,6 +21,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # security.pki.certificateFiles = [../../tmp.crt];
   networking.hostName = "nixos"; # Define your hostname.
   networking.extraHosts = ''
     10.54.96.40 kubezt-s3.prism-central.cluster.local
